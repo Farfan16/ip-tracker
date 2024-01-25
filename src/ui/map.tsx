@@ -4,7 +4,6 @@ import { MapContainer, Marker, Popup, TileLayer, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
-import { useEffect } from "react";
 
 const Map = ({
   latitude,
@@ -25,7 +24,6 @@ const Map = ({
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <Marker position={[latitude, longitude]} draggable={false}>
-        <Popup>Hey! you found me</Popup>
       </Marker>
     </MapContainer>
   );
