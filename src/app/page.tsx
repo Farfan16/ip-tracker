@@ -37,7 +37,7 @@ export default function Home() {
   const getInitialIp = async () => {
     const initialIp = await getIpAddress();
     setIpAddress(initialIp);
-    await fetchIpData();
+    // await fetchIpData();
   };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
@@ -54,7 +54,9 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    fetchIpData();
+    if (ipAddress) {
+      fetchIpData();
+    }
   }, [ipAddress]);
 
   return (
