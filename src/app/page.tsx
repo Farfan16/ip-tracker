@@ -20,7 +20,7 @@ export default function Home() {
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
 
-  const fetchIpData = async (ipAddress: string) => {
+  const fetchIpData = async () => {
     try {
       const ipData = await fetchData({ targetIpAddress: ipAddress });
       setCity(ipData.city);
@@ -37,7 +37,7 @@ export default function Home() {
   const getInitialIp = async () => {
     const initialIp = await getIpAddress();
     setIpAddress(initialIp);
-    await fetchIpData(ipAddress);
+    await fetchIpData();
   };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
@@ -51,10 +51,10 @@ export default function Home() {
 
   useEffect(() => {
     getInitialIp();
-  });
+  }, []);
 
   useEffect(() => {
-    fetchIpData(ipAddress);
+    fetchIpData();
   }, [ipAddress]);
 
   return (
