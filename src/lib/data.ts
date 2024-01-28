@@ -14,7 +14,7 @@ export const fetchData = async ({
   targetIpAddress: string;
 }) => {
   const response = await fetch(
-    `https://geo.ipify.org/api/v2/country,city?apiKey=at_xYqpMZD1roLNOGOlBMiMQN6kMJmow&ipAddress=${targetIpAddress}`
+    `https://geo.ipify.org/api/v2/country,city?apiKey=at_ufPPzSinZRCppqbnRQr9GTqFkhAKh&ipAddress=${targetIpAddress}`
   );
   if (response.status != 200) {
     console.log("Error fetch ipify IP Data", Error);
