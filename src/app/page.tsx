@@ -86,19 +86,21 @@ export default function Home() {
             <Image src={arrowIcon} alt="arrow icon" width={14} height={14} />
           </button>
         </form>
-        <div className="absolute -bottom-[8.3rem] md:-bottom-[4.5rem] z-20 flex flex-col justify-center items-center md:flex-row md:justify-start md:items-start md:divide-x max-w-[50rem] gap-3 md:gap-0 px-16 py-4 md:px-4 md:py-8 bg-white rounded-xl drop-shadow-xl">
+        <div className="absolute -bottom-[8.3rem] md:-bottom-[4.5rem] md:h-40 z-20 flex flex-col justify-center items-center md:flex-row md:justify-start md:items-start md:divide-x max-w-[60rem] gap-3 md:gap-0 px-12 py-4 md:px-4 md:py-8 bg-white rounded-xl drop-shadow-xl">
           <div
             id="ipAddress"
-            className="flex flex-col items-center justify-center md:justify-start md:pr-8 md:gap-2 md:max-w-60"
+            className="flex flex-col h-full items-center justify-center md:items-start md:justify-start md:pr-8 md:gap-2 md:max-w-60"
           >
             <p className="uppercase font-semibold text-[#969696] text-xs">
               Ip Address
             </p>
-            <p className="font-semibold text-[#2b2b2b] text-2xl">{ipAddress}</p>
+            <p className="font-semibold text-[#2b2b2b] text-xl md:text-2xl">
+              {ipAddress}
+            </p>
           </div>
           <div
             id="location"
-            className="flex flex-col items-center justify-center md:justify-start md:px-8 md:gap-2 max-w-60"
+            className="flex flex-col h-full items-center justify-center md:items-start md:justify-start md:px-8 md:gap-2 max-w-60"
           >
             <p className="uppercase font-semibold text-[#969696] text-xs">
               Location
@@ -113,7 +115,7 @@ export default function Home() {
           </div>
           <div
             id="timezone"
-            className="flex flex-col items-center justify-center md:justify-start md:px-8 md:gap-2 max-w-60"
+            className="flex flex-col h-full items-center justify-center md:items-start md:justify-start md:px-8 md:gap-2 max-w-60"
           >
             <p className="uppercase font-semibold text-[#969696] text-xs">
               Timezone
@@ -124,7 +126,7 @@ export default function Home() {
           </div>
           <div
             id="isp"
-            className="flex flex-col items-center justify-center md:justify-start md:px-8 md:gap-2 max-w-60"
+            className="flex flex-col h-full items-center justify-center md:items-start md:justify-start md:px-8 md:gap-2 max-w-60"
           >
             <p className="uppercase font-semibold text-[#969696] text-xs">
               ISP
