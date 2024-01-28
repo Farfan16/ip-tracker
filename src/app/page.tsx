@@ -37,7 +37,6 @@ export default function Home() {
   const getInitialIp = async () => {
     const initialIp = await getIpAddress();
     setIpAddress(initialIp);
-    // await fetchIpData();
   };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
