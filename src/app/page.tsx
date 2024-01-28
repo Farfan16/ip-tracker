@@ -4,18 +4,21 @@ import Image from "next/image";
 import arrowIcon from "../../public/images/icon-arrow.svg";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { getIpAddress, fetchData } from "@/data/data";
+import { getIpAddress, fetchData } from "@/lib/data";
 
 export default function Home() {
   const Map = dynamic(() => import("@/ui/map"), {
     ssr: false,
     loading: () => <p>Loading Map...</p>,
   });
-  
-  const getInitialIp = async () => {
-    const initialIp = await getIpAddress();
-    setIpAddress(initialIp);
-  };
+
+  const [ipAddress, setIpAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [timezone, setTimezone] = useState("");
+  const [isp, setIsp] = useState("");
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
 
   const fetchIpData = async () => {
     try {
@@ -26,29 +29,33 @@ export default function Home() {
       setIsp(ipData.isp);
       setLatitude(ipData.latitude);
       setLongitude(ipData.longitude);
-      console.log(city);
-      console.log(country);
     } catch (error) {
-      console.log("Ada error", error);
+      console.log("There's an error: ", error);
     }
   };
 
-  const [ipAddress, setIpAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
-  const [timezone, setTimezone] = useState("");
-  const [isp, setIsp] = useState("");
-  const [latitude, setLatitude] = useState(0);
-  const [longitude, setLongitude] = useState(0);
+  const getInitialIp = async () => {
+    const initialIp = await getIpAddress();
+    setIpAddress(initialIp);
+    await fetchIpData();
+  };
 
-  // const inputHandler = (event) => {
-  //   setIpAddress(event.target.value);
-  // };
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    const target = e.target as typeof e.target & {
+      ipInput: { value: string };
+    };
+    const ipInput = target.ipInput.value;
+    setIpAddress(ipInput);
+  };
 
   useEffect(() => {
     getInitialIp();
-    fetchIpData();
   }, []);
+
+  useEffect(() => {
+    fetchIpData();
+  }, [ipAddress]);
 
   return (
     <main className="flex h-screen flex-col items-center">
@@ -62,14 +69,7 @@ export default function Home() {
         <form
           id="search-input"
           className="flex flex-row min-w-max"
-          onSubmit={(e: React.SyntheticEvent) => {
-            e.preventDefault();
-            const target = e.target as typeof e.target & {
-              ipInput: { value: string };
-            };
-            const ipInput = target.ipInput.value;
-            setIpAddress(ipInput);
-          }}
+          onSubmit={handleSubmit}
         >
           <input
             type="text"
@@ -80,7 +80,6 @@ export default function Home() {
           />
           <button
             type="submit"
-            onClick={fetchIpData}
             className="flex items-center justify-center bg-black hover:bg-[#2b2b2b] rounded-e-2xl p-5"
           >
             <Image src={arrowIcon} alt="arrow icon" width={14} height={14} />
@@ -104,7 +103,11 @@ export default function Home() {
               Location
             </p>
             <p className="font-semibold text-[#2b2b2b] text-2xl">
-              {city}, {country}
+              {country && (
+                <>
+                  {city}, {country}
+                </>
+              )}
             </p>
           </div>
           <div
@@ -115,7 +118,7 @@ export default function Home() {
               Timezone
             </p>
             <p className="font-semibold text-[#2b2b2b] text-2xl">
-              UTC {timezone}
+              {timezone && <>UTC {timezone}</>}
             </p>
           </div>
           <div
